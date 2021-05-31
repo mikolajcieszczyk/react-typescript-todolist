@@ -1,0 +1,42 @@
+@import './normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
+
+:root {
+    --global-font-family: 'Open Sans', sans-serif;
+    --global-font-size: 1.6rem;
+    --global-text-color: #000;
+    --global-color-primary: #3E66FB;
+    --global-color-primary-darken: #375be1;
+    --global-color-secondary: #B57BFF;
+    --global-color-secondary-darken: #f7f1ff;
+    --global-color-success: #3CC13B;
+    --global-color-success-darken: #36ad35;
+    --global-color-warning: #F3BB1C;
+    --global-color-warning-darken: #daa819;
+    --global-color-error: #F03738;
+    --global-color-error-darken: #d83132;
+    --transition: all 0.2s;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: var(--global-font-family);
+    font-size: var(--global-font-size);
+    color: var(--global-text-color);
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
+button {
+    transition: var(--transition);
+}
+
+

@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import { defaultTodos } from '../assets/data';
 import SingleTodo from './SingleTodo';
 import Button from './ui/Button';
-import { StyledFunctionButton } from './TodoDetails';
 
 const ShowData: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -30,18 +29,30 @@ const ShowData: React.FC = () => {
       .catch((error) => alert(error.message));
   }, []);
 
-  const listAllTodos = data.map((todo, index) => {
-    return (
-      <div key={index}>
-        <SingleTodo
-          id={todo.id}
-          title={todo.title}
-          completed={todo.completed}
-          destination={`/todos/${index + 1}`}
-        />
-      </div>
-    );
-  });
+  const listAllTodos = data
+    .sort((a, b) => {
+      let nameA = a.id;
+      let nameB = b.id;
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    })
+    .map((todo, index) => {
+      return (
+        <div key={index}>
+          <SingleTodo
+            id={todo.id}
+            title={todo.title}
+            completed={todo.completed}
+            destination={`/todos/${todo.id}`}
+          />
+        </div>
+      );
+    });
 
   const listCompletedTodos = data
     .filter(function (todo) {
@@ -54,7 +65,7 @@ const ShowData: React.FC = () => {
             id={todo.id}
             title={todo.title}
             completed={todo.completed}
-            destination={`/todos/${index + 1}`}
+            destination={`/todos/${todo.id}`}
           />
         </div>
       );
@@ -71,7 +82,7 @@ const ShowData: React.FC = () => {
             id={todo.id}
             title={todo.title}
             completed={todo.completed}
-            destination={`/todos/${index + 1}`}
+            destination={`/todos/${todo.id}`}
           />
         </div>
       );
@@ -95,7 +106,7 @@ const ShowData: React.FC = () => {
           id={todo.id}
           title={todo.title}
           completed={todo.completed}
-          destination={`/todos/${index + 1}`}
+          destination={`/todos/${todo.id}`}
         />
       </div>
     ));
@@ -118,7 +129,7 @@ const ShowData: React.FC = () => {
           id={todo.id}
           title={todo.title}
           completed={todo.completed}
-          destination={`/todos/${index + 1}`}
+          destination={`/todos/${todo.id}`}
         />
       </div>
     ));
@@ -186,34 +197,41 @@ const ShowData: React.FC = () => {
     <>
       <CenterContainer>
         <Button
-          color='green'
+          color='primary'
           onClick={switchToAll}
           child='show all todos'
+          icon='list-task'
         />
         <Button
-          color='green'
+          color='primary'
           onClick={switchCompleted}
           child='show completed'
+          icon='check-all'
         />
         <Button
-          color='green'
+          color='primary'
           onClick={switchUncompleted}
           child='show uncompleted'
+          icon='dash'
         />
         <Button
-          color='green'
+          color='primary'
           onClick={switchAscending}
           child='sort ascending'
+          icon='arrow-up'
         />
         <Button
-          color='green'
+          color='primary'
           onClick={switchDescending}
           child='sort descending'
+          icon='arrow-down'
         />
 
-        <Link to='/addtodo'>
-          <Button child='add todo' color='blue' />
-        </Link>
+        <Button
+          color='success'
+          child={<Link to='/addtodo'>add todo</Link>}
+          icon='plus-circle'
+        />
       </CenterContainer>
 
       <div style={{ textAlign: 'center' }}>{showTitle()}</div>

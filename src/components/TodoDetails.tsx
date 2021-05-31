@@ -10,6 +10,8 @@ import Skeleton from 'react-loading-skeleton';
 import { defaultOneTodo } from '../assets/data';
 import styled from 'styled-components';
 
+import Card from './ui/Card';
+
 export const TodoDetails = ({
   match,
 }: RouteComponentProps<{ todoId?: string }>) => {
@@ -56,55 +58,34 @@ export const TodoDetails = ({
     <>
       {isLoading && <Skeleton count={5} />}
       {!isLoading && (
-        <>
+        <StyledTodoDetail>
           {data.map((todo) => {
             return (
-              <StyledTodoDetail key={todo.id}>
-                <h3>ID: {todo.id}</h3>
-                <p>Title: {todo.title}</p>
-                <p>Completed: {todo.completed ? 'true' : 'false'}</p>
-                <StyledFunctionButton
-                  color='red'
-                  onClick={deleteTodo}
-                >
-                  delete me
-                </StyledFunctionButton>
-                <StyledFunctionButton>
-                  <Link to='/'>Back to homepage</Link>
-                </StyledFunctionButton>
-              </StyledTodoDetail>
+              <Card
+                key={todo.id}
+                id={todo.id}
+                title={todo.title}
+                completed={todo.completed}
+                showCompleted={true}
+                deleteMe={deleteTodo}
+                takeMeBack={true}
+              />
             );
           })}
-        </>
+        </StyledTodoDetail>
       )}
     </>
   );
 };
 
-export const StyledFunctionButton = styled.button`
-  background-color: ${(props) =>
-    props.color === 'red' ? '#dc3545' : '#511281'};
-  min-height: 70px;
-  color: white;
-  display: inline-block;
-  min-width: 100%;
-  font-weight: 400;
-  line-height: 1.5;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  border: 1px solid transparent;
-  padding: 0.375rem 0.75rem;
-  margin: 2%;
-  font-size: 1rem;
-  border-radius: 0.25rem;
-`;
-
 const StyledTodoDetail = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
-  width: 30%;
-  margin: auto;
+  width: 45%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5%;
 `;
